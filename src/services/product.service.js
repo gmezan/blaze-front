@@ -5,7 +5,6 @@ class ProductService {
   BASE = "/product";
 
   getAll(page, size) {
-
     return http.get(`${this.BASE}?page=${page}&size=${size}`);
   }
 

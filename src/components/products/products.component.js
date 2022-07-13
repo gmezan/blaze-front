@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ProductService from "../../services/product.service";
 
-const url = "";
 
 export default class Products extends Component { 
     constructor(props) {
@@ -14,7 +13,8 @@ export default class Products extends Component {
           products: [],
           page: 0,
           size: 3,
-          totalPages: 0
+          totalPages: 0,
+          offset: 0
         };
 
         this.getProducts();
@@ -25,6 +25,7 @@ export default class Products extends Component {
             .then(resp => {
                 this.setState({products: resp.data?.content});
                 this.setState({totalPages: resp.data?.totalPages});
+                this.setState({offset: resp.data?.pageable?.offset || 0});
             })
             .catch(e => console.log(e));
     }
@@ -35,8 +36,15 @@ export default class Products extends Component {
     }
 
     changePage(p) {
+        ProductService.getAll(p, this.state.size)
+            .then(resp => {
+                this.setState({products: resp.data?.content});
+                this.setState({totalPages: resp.data?.totalPages});
+                this.setState({offset: resp.data?.pageable?.offset || 0});
+            })
+            .catch(e => console.log(e));
         this.setState({page: p});
-        this.getProducts();
+        return false;
     }
 
     render() {
@@ -64,12 +72,12 @@ export default class Products extends Component {
                     </thead>
                     <tbody>{products && products.map((product, index) => (
                         <tr key={index}>
-                            <td>{ index }</td>
+                            <td>{ index + this.state.offset }</td>
                             <td>{ product.name }</td>
                             <td>{ product.category }</td>
                             <td>{ product.price }</td>
                             <td>{ product.status }</td>
-                            <td> <Link to={"/edit-product"}>Edit</Link></td>
+                            <td> <Link to={"/edit-product/" + product.id }>Edit</Link></td>
                         </tr>))}
                     </tbody>
                     </table>
@@ -78,21 +86,21 @@ export default class Products extends Component {
                     <nav>
                         <ul className="pagination">
                             { this.state.page > 0 ? (
-                                <li className="page-item" key={-1}><a className="page-link" onClick={this.changePage(this.state.page - 1)} href={url}>Previous</a></li>
+                                <li className="page-item" key={-1}><button className="page-link" onClick={() => this.changePage(this.state.page - 1)}>Previous</button></li>
                             ):(
-                                <li className="page-item disabled" key={-1}><a className="page-link" href={url}>Previous</a></li>
+                                <li className="page-item disabled" key={-1}><button className="page-link">Previous</button></li>
                             )}
                             
-                            {[...Array(this.state.totalPages)].map((x, i) => 
-                                this.state.page == i ? 
-                                (<li className="page-item active" key={i}><a className="page-link" onClick={this.changePage(i)} href={url}>{i+1}</a></li>):
-                                (<li className="page-item" key={i}><a className="page-link" onClick={this.changePage(i)} href={url}>{i+1}</a></li>)
+                            {this.state.totalPages>0 && [...Array(this.state.totalPages)].map((x, i) => 
+                                this.state.page === i ? 
+                                (<li className="page-item active" key={i}><button className="page-link" onClick={() => this.changePage(i)}>{i+1}</button></li>):
+                                (<li className="page-item" key={i}><button className="page-link" onClick={() => this.changePage(i)}>{i+1}</button></li>)
                             )}
 
                             { this.state.page < (this.state.totalPages-1) ? (
-                                <li className="page-item" key={-2}><a className="page-link" onClick={this.changePage(this.state.page + 1)} href={url}>Next</a></li>
+                                <li className="page-item" key={-2}><button className="page-link" onClick={() => this.changePage(this.state.page + 1)}>Next</button></li>
                             ):(
-                                <li className="page-item disabled" key={-2}><a className="page-link" href={url}>Next</a></li>
+                                <li className="page-item disabled" key={-2}><button className="page-link">Next</button></li>
                             )}
                         </ul>
                     </nav>
