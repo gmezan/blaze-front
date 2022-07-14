@@ -30,7 +30,7 @@ export default class EditOrder extends Component {
             taxesAmounts: null,
             totalTaxes: null,
             totalAmount: null,
-            items: [],
+            items: [],
             isAdd: false,
             itemsSelected: []
         };
