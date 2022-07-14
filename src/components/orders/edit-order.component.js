@@ -264,21 +264,21 @@ export default class EditOrder extends Component {
 
                     <div className="row py-3">
                         <div className="col-6 font-weight-bold text-left">Subtotal</div>
-                        <div className="col-6 text-right">$ {this.state.totalAmount}</div>
+                        <div className="col-6 text-right">$ {this.state.totalAmount?.toFixed(2)}</div>
 
                         <div className="col-12 font-weight-bold text-left">Taxes</div>
                         
                         {this.state.taxesAmounts && Object.entries(this.state.taxesAmounts).map(([key, value]) => (
                             <div key={key} className="container text-right">
-                                <div className="small"><div className="font-weight-bold">{key}</div> $ {value}</div> 
+                                <div className="small"><div className="font-weight-bold">{key}</div> $ {value?.toFixed(2)}</div> 
                             </div>)
                         )}
 
                         <div className="col-6 font-weight-bold text-left pt-2">Total Taxes</div>
-                        <div className="col-6 text-right pt-2">$ {this.state.totalTaxes}</div>  
+                        <div className="col-6 text-right pt-2">$ {this.state.totalTaxes?.toFixed(2)}</div>  
 
                         <div className="col-6 font-weight-bold text-left">Total</div>
-                        <div className="col-6 text-right">$ {this.state.totalAmount + this.state.totalTaxes}</div>  
+                        <div className="col-6 text-right">$ {(this.state.totalAmount + this.state.totalTaxes)?.toFixed(2)}</div>  
 
                     </div>
 

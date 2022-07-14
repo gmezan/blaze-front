@@ -96,7 +96,7 @@ export default class Orders extends Component {
                             <td>{ order.customer }</td>
                             <td>{ order.status }</td>
                             <td>{ order.date }</td>
-                            <td>$ { order.totalAmount + order.totalTaxes }</td>
+                            <td>$ { (order.totalAmount + order.totalTaxes)?.toFixed(2) }</td>
                             <td> <Link to={"/orders/" + order.number }>Edit</Link></td>
                         </tr>))}
                     </tbody>
