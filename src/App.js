@@ -32,7 +32,7 @@ function App() {
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path="/orders" component={Orders} />
+            <Route exact path={["/", "/orders"]} component={Orders} />
             <Route exact path="/products" component={Products} />
             <Route exact path="/create-product" component={CreateProduct} />
             <Route  path="/products/:id" component={EditProduct} />
