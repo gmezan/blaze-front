@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/blaze-front/static/css/main.6e499c6d.css",
-    "main.js": "/blaze-front/static/js/main.0cb817d4.js",
+    "main.js": "/blaze-front/static/js/main.0687c6de.js",
     "index.html": "/blaze-front/index.html",
     "main.6e499c6d.css.map": "/blaze-front/static/css/main.6e499c6d.css.map",
-    "main.0cb817d4.js.map": "/blaze-front/static/js/main.0cb817d4.js.map"
+    "main.0687c6de.js.map": "/blaze-front/static/js/main.0687c6de.js.map"
   },
   "entrypoints": [
     "static/css/main.6e499c6d.css",
-    "static/js/main.0cb817d4.js"
+    "static/js/main.0687c6de.js"
   ]
 }
