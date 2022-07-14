@@ -19,10 +19,6 @@ export default class Products extends Component {
         this.getProducts();
     }
 
-    componentDidMount() {
-        this.getProducts();
-    }
-
     componentDidUpdate() {
         this.getProducts();
     }

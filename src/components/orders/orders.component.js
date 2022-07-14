@@ -18,10 +18,6 @@ export default class Orders extends Component {
         this.getOrders();
     }
 
-    componentDidMount() {
-        this.getOrders();
-    }
-
     componentDidUpdate() {
         this.getOrders();
     }
