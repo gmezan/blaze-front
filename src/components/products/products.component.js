@@ -23,6 +23,10 @@ export default class Products extends Component {
         this.getProducts();
     }
 
+    componentDidUpdate() {
+        this.getProducts();
+    }
+
     getProducts() {
         ProductService.getAll(this.state.page, this.state.size)
             .then(resp => {

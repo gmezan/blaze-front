@@ -22,6 +22,10 @@ export default class Orders extends Component {
         this.getOrders();
     }
 
+    componentDidUpdate() {
+        this.getOrders();
+    }
+
     getOrders() {
         OrderService.getAll(this.state.page, this.state.size)
             .then(resp => {
