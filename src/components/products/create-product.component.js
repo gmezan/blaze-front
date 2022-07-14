@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+
 import ProductService from "../../services/product.service"
+
+const CATEGORIES = ["Cookies", "Candies", "Cakes", "Desserts", "Drinks"];
 
 export default class CreateProduct extends Component {
     constructor(props) {
@@ -13,9 +16,9 @@ export default class CreateProduct extends Component {
         this.state = {
             id: null,
             name: "",
-            category: "",
+            category: CATEGORIES[0],
             price: 0.0,
-            status: ""
+            status: "INACTIVE"
         };
 
     }
@@ -65,6 +68,8 @@ export default class CreateProduct extends Component {
     }
 
     render() {
+        const { name, category, price, status} = this.state;
+
         return (
             <div>
                 <div className="container h2">Create Product</div>
@@ -82,20 +87,24 @@ export default class CreateProduct extends Component {
                                 name="name"/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="category">category</label>
-                            <input
+                            <label htmlFor="category">Category</label>
+                            <select
                                 type="category"
                                 className="form-control"
                                 id="category"
                                 required
                                 value={this.state.category}
                                 onChange={this.onChangeCategory}
-                                name="category"/>
+                                name="category">
+                                    {CATEGORIES.map((c,idx)=> (
+                                        <option key={idx} value={c}>{c}</option>
+                                    ))}
+                            </select>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="price">price</label>
+                            <label htmlFor="price">Price</label>
                             <input
-                                type="price"
+                                type="number"
                                 className="form-control"
                                 id="price"
                                 required
@@ -104,20 +113,28 @@ export default class CreateProduct extends Component {
                                 name="price"/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="status">status</label>
-                            <input
-                                type="status"
+                            <label htmlFor="status">Status</label>
+                            <select
+                                type="select"
                                 className="form-control"
                                 id="status"
                                 required
                                 value={this.state.status}
                                 onChange={this.onChangeStatus}
-                                name="status"/>
+                                name="status">
+                                <option value={"ACTIVE"}>ACTIVE</option>
+                                <option value={"INACTIVE"}>INACTIVE</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <button disabled={!(name && category && price && status)} onClick={this.saveProduct} className="btn btn-success mr-2">
+                                Save
+                            </button>
+                            <button type="button" onClick={() => this.props.history.push("/products")} className="btn">
+                              Back
+                          </button>
                         </div>
                     </div>
-                    <button onClick={this.saveProduct} className="btn btn-success">
-                        Save
-                    </button>
                  </div>
             </div>)}
  }

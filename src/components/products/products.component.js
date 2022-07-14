@@ -7,7 +7,6 @@ export default class Products extends Component {
     constructor(props) {
         super(props);
         this.getProducts = this.getProducts.bind(this);
-        this.delete = this.delete.bind(this)
     
         this.state = {
           products: [],
@@ -20,6 +19,10 @@ export default class Products extends Component {
         this.getProducts();
     }
 
+    componentDidMount() {
+        this.getProducts();
+    }
+
     getProducts() {
         ProductService.getAll(this.state.page, this.state.size)
             .then(resp => {
@@ -28,11 +31,6 @@ export default class Products extends Component {
                 this.setState({offset: resp.data?.pageable?.offset || 0});
             })
             .catch(e => console.log(e));
-    }
-
-    delete(id) { 
-        ProductService.delete(id).catch(e => console.log(e));
-        this.getProducts();
     }
 
     changePage(p) {
@@ -48,7 +46,7 @@ export default class Products extends Component {
     }
 
     render() {
-        const { products, page, size } = this.state;
+        const { products} = this.state;
         
         return (<div>
                 <div className="container h2">Products</div>
@@ -72,12 +70,12 @@ export default class Products extends Component {
                     </thead>
                     <tbody>{products && products.map((product, index) => (
                         <tr key={index}>
-                            <td>{ index + this.state.offset }</td>
+                            <td>{ product.id }</td>
                             <td>{ product.name }</td>
                             <td>{ product.category }</td>
-                            <td>{ product.price }</td>
+                            <td>$ { product.price }</td>
                             <td>{ product.status }</td>
-                            <td> <Link to={"/edit-product/" + product.id }>Edit</Link></td>
+                            <td> <Link to={"/products/" + product.id }>Edit</Link></td>
                         </tr>))}
                     </tbody>
                     </table>

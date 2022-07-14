@@ -35,9 +35,9 @@ function App() {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/products" component={Products} />
             <Route exact path="/create-product" component={CreateProduct} />
-            <Route path="/edit-product/:id" component={EditProduct} />
+            <Route  path="/products/:id" component={EditProduct} />
             <Route exact path="/create-order" component={CreateOrder} />
-            <Route exact path="/edit-order" component={EditOrder} />
+            <Route  path="/orders/:id" component={EditOrder} />
           </Switch>
         </div>
       </div>
